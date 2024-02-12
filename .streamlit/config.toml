@@ -6,5 +6,4 @@ textColor="#222223"
 font="sans serif"
 
 [server]
-enableStaticServing = true
 enableXsrfProtection=false
