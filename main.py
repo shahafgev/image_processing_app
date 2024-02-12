@@ -244,7 +244,6 @@ def main():
         else:
             send_email(user_name, user_comment)
 
-
     # Add GitHub and LinkedIn icons with links
     github_html = get_img_with_href('github-icon.png', 'https://github.com/shahafgev', width=30)
     linkedin_html = get_img_with_href('linkedin-icon.jpg', 'https://www.linkedin.com/in/shahaf-gev/', width=30)
@@ -288,9 +287,20 @@ def main():
             return
 
         with st.expander("Image information"):
-            image_info = get_image_info(original_image)
-            for key, value in image_info.items():
-                st.write(f"{key}: {value}")
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                image_info = get_image_info(original_image)
+                for key, value in image_info.items():
+                    st.write(f"**{key}**: {value}")
+            with col2:
+                rgb_cube = cv2.imread("rgb_cube.jpg")
+                st.image(rgb_cube)
+
+            st.info("**Color channels**: In a color image, colors are typically represented using three channels: "
+                    "Red, Green, and Blue (RGB). Each channel contains pixel values that contribute to the overall "
+                    "color of the image, "
+                    "ranging from 0 to 255. For example, black is (0, 0, 0) and white is (255, 255, 255).",
+                    icon="ℹ️")
 
         with st.expander("Image color channels histograms"):
             st.write("Color channels histograms offer a snapshot of how different colors"
@@ -298,18 +308,61 @@ def main():
                      " of pixel intensities in Red, Green, and Blue channels. Peaks in these histograms"
                      " highlight the prevalence and intensity of specific colors, aiding in"
                      " understanding the overall color composition and making adjustments"
-                     " for better image quality."
+                     " for better image quality. \n"
                      )
-            st.write("")
+
             # Call the function to plot histograms
             fig = plot_histograms(original_image)
             # Display the plot
             st.pyplot(fig)
+            st.write("")
+
+            st.write("Click the tabs to see what we can learn:")
+            tab1, tab2 = st.tabs(["Histograms", "Cumulative histograms"])
+            with tab1:
+                st.write(" 1. **Brightness/Exposure:**\n"
+                         "A peak shifted to the right side of the histogram indicates brighter or "
+                         "overexposed areas,"
+                         "while a peak on the left suggests darker or underexposed regions.\n"
+                         " 2. **Contrast:**\n"
+                         "A wider spread of values across the histogram suggests a higher contrast in the "
+                         "image,"
+                         "while a narrower range may indicate lower contrast.\n"
+                         " 3. **Saturation:**\n"
+                         "In a color image, a color channel with a broader distribution indicates a more "
+                         "saturated"
+                         "presence of that color in the image. A narrow distribution may suggest "
+                         "desaturation.\n"
+                         " 4. **Image Quality:**\n"
+                         "A well-distributed histogram with values spread across the entire range often "
+                         "indicates a"
+                         "high-quality image with a broad range of tones and colors.\n"
+                         " 5. **Artifacts or Anomalies:**\n"
+                         "Unusual patterns or spikes in a color channel may indicate artifacts, noise, "
+                         "or specific"
+                         "features in the image that could require attention.")
+            with tab2:
+                st.write(" 1. **Overall Brightness Distribution:**\n"
+                         "The cumulative histogram allows you to see the cumulative distribution of "
+                         "brightness values in the image. Steeper inclines indicate regions with higher "
+                         "pixel intensities, while flatter sections represent lower intensities.\n"
+                         "2. **Clipping and Saturation:**\n"
+                         "Flat sections at the extremes of the cumulative histogram may suggest areas where "
+                         "pixel values are saturated or clipped. This can help in identifying overexposed or "
+                         "underexposed regions.\n"
+                         " 3. **Saturation Levels:**\n"
+                         "In a color image, examining the cumulative histograms of individual color channels "
+                         "can help assess the overall saturation levels. Steeper slopes may suggest more "
+                         "vivid colors, while flatter slopes indicate desaturation.")
 
         # Convert the image datatype to uint8
         original_image = original_image.astype(np.uint8)
 
-        with st.expander("Color schemes", expanded=True):
+        with st.expander("Color schemes"):
+            st.write("Color schemes play a crucial role in shaping the visual language of images. Whether used for "
+                     "artistic expression, conveying information, or improving accessibility, color transformations "
+                     "provide a powerful means to tailor the color appearance of images to achieve specific "
+                     "objectives.")
             processed_image1 = None  # Initialize processed_image
             col1, col2 = st.columns(2)
             with col1:
@@ -361,8 +414,12 @@ def main():
                         key="download_button",
                     )
 
-        with st.expander("Image transformations", expanded=True):
+        with st.expander("Image transformations"):
             processed_image2 = None  # Initialize processed_image
+            st.write("Image transformations are techniques used to enhance or modify the visual characteristics of "
+                     "digital images, aiming to improve their quality, visibility, or overall appearance. These "
+                     "transformations are applied to images for various reasons, and they play a crucial role in "
+                     "image processing and computer vision applications.")
             # Function buttons in the same row with a small gap
             col1, col2, col3, col4 = st.columns(4)
             with col1:
