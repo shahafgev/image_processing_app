@@ -1,4 +1,4 @@
-# image_processing_app
+# Image Processing App
 Welcome to the Image Processing App repository! This Streamlit app offers a range of features for image analysis and enhancement:
 
 Image Information:
