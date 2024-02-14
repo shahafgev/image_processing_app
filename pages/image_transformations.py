@@ -163,7 +163,7 @@ def main():
         with col3:
             save_image_button2 = st.download_button(
                 label="Download processed image", data=processed_image_bytes,
-                mime="image/jpeg", key="download_button",
+                mime="image/jpeg", key="download_button", filename="my processed image"
             )
 
 
