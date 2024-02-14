@@ -197,7 +197,7 @@ def main():
                     data=processed_image_bytes,
                     mime="image/jpeg",
                     key="download_button",
-                    filename="my processed image"
+                    filename="my_processed_image.jpg"
                 )
 
 
