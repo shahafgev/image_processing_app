@@ -70,6 +70,7 @@ def menu():
         st.sidebar.page_link("pages/color_schemes.py", label="Color Schemes")
         st.sidebar.page_link("pages/image_transformations.py", label="Image Transformations")
         st.sidebar.page_link("pages/edge_detection.py", label="Edge Detection")
+        st.sidebar.page_link("pages/morphological_operations.py", label="Morphological Operations")
 
 
 # Set dark theme
